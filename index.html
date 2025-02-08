@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>С Днем Рождения!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Основное сердце */
+        .heart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            animation: pulse 1.2s infinite;
+            z-index: 2;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 160px;
+            background: #ff3f3f;
+            border-radius: 100px 100px 0 0;
+        }
+
+        .heart::before {
+            left: 100px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        /* Текст */
+        .text {
+            color: #ff3f3f;
+            font-size: 40px;
+            text-shadow: 2px 2px 4px rgba(255,63,63,0.3);
+            animation: textGlow 2s infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Анимация фоновых сердечек */
+        .hearts span {
+            position: absolute;
+            font-size: 25px;
+            color: rgba(255,63,63,0.6);
+            animation: move 15s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(255,63,63,0.3); }
+            50% { text-shadow: 0 0 20px #ff3f3f, 2px 2px 4px rgba(255,63,63,0.3); }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(-50vh) rotate(45deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(150vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heart {
+                width: 150px;
+                height: 150px;
+            }
+            .text {
+                font-size: 30px;
+            }
+            .hearts span {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Фоновые сердечки -->
+    <div class="hearts">
+        <span>❤</span><span>❤</span><span>❤</span><span>❤</span>
+        <span>❤</span><span>❤</span><span>❤</span><span>❤</span>
+    </div>
+
+    <div class="container">
+        <div class="heart"></div>
+        <h1 class="text">С Днем Рождения!</h1>
+    </div>
+
+    <script>
+        // Генерация летящих сердечек
+        const hearts = document.querySelector('.hearts');
+        const heartsCount = 15;
+        
+        for(let i = 0; i < heartsCount; i++) {
+            const heart = document.createElement('span');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 15 + 's';
+            heart.style.animationDuration = 5 + Math.random() * 10 + 's';
+            hearts.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
