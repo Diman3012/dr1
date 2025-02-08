@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>С Днем Рождения!</title>
     <style>
         body {
@@ -14,20 +15,23 @@
             background: #ffffff;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .container {
             text-align: center;
             position: relative;
             z-index: 1;
+            padding: 20px;
         }
 
-        /* Основное сердце */
         .heart {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 50px auto;
+            width: 30vw;
+            height: 30vw;
+            max-width: 200px;
+            max-height: 200px;
+            margin: 5vh auto;
             animation: pulse 1.2s infinite;
             z-index: 2;
         }
@@ -36,14 +40,14 @@
         .heart::after {
             content: '';
             position: absolute;
-            width: 100px;
-            height: 160px;
+            width: 50%;
+            height: 80%;
             background: #ff3f3f;
-            border-radius: 100px 100px 0 0;
+            border-radius: 50vw 50vw 0 0;
         }
 
         .heart::before {
-            left: 100px;
+            left: 50%;
             transform: rotate(-45deg);
             transform-origin: 0 100%;
         }
@@ -54,24 +58,24 @@
             transform-origin: 100% 100%;
         }
 
-        /* Текст */
         .text {
             color: #ff3f3f;
-            font-size: 40px;
+            font-size: 6vw;
             text-shadow: 2px 2px 4px rgba(255,63,63,0.3);
             animation: textGlow 2s infinite;
             position: relative;
             z-index: 2;
+            white-space: nowrap;
         }
 
-        /* Анимация фоновых сердечек */
         .hearts span {
             position: absolute;
-            font-size: 25px;
+            font-size: 4vw;
             color: rgba(255,63,63,0.6);
             animation: move 15s linear infinite;
             pointer-events: none;
             z-index: 0;
+            will-change: transform;
         }
 
         @keyframes pulse {
@@ -87,7 +91,7 @@
 
         @keyframes move {
             0% {
-                transform: translateY(-50vh) rotate(45deg);
+                transform: translateY(-100vh) rotate(45deg);
                 opacity: 0;
             }
             20% {
@@ -102,26 +106,30 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 480px), (max-height: 600px) {
             .heart {
-                width: 150px;
-                height: 150px;
+                width: 40vw;
+                height: 40vw;
+                margin: 10vh auto;
             }
             .text {
-                font-size: 30px;
+                font-size: 8vw;
             }
             .hearts span {
-                font-size: 20px;
+                font-size: 6vw;
+                animation-duration: 8s !important;
+            }
+        }
+
+        @media (orientation: landscape) {
+            .container {
+                transform: scale(0.9);
             }
         }
     </style>
 </head>
 <body>
-    <!-- Фоновые сердечки -->
-    <div class="hearts">
-        <span>❤</span><span>❤</span><span>❤</span><span>❤</span>
-        <span>❤</span><span>❤</span><span>❤</span><span>❤</span>
-    </div>
+    <div class="hearts"></div>
 
     <div class="container">
         <div class="heart"></div>
@@ -129,18 +137,28 @@
     </div>
 
     <script>
-        // Генерация летящих сердечек
-        const hearts = document.querySelector('.hearts');
-        const heartsCount = 15;
+        const heartsContainer = document.querySelector('.hearts');
+        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
         
-        for(let i = 0; i < heartsCount; i++) {
-            const heart = document.createElement('span');
-            heart.innerHTML = '❤';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDelay = Math.random() * 15 + 's';
-            heart.style.animationDuration = 5 + Math.random() * 10 + 's';
-            hearts.appendChild(heart);
+        function createHearts() {
+            const heartsCount = isMobile ? 10 : 15;
+            
+            for(let i = 0; i < heartsCount; i++) {
+                const heart = document.createElement('span');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (isMobile ? 5 : 8) + Math.random() * 10 + 's';
+                heartsContainer.appendChild(heart);
+            }
         }
+
+        createHearts();
+        
+        window.addEventListener('resize', () => {
+            heartsContainer.innerHTML = '';
+            createHearts();
+        });
     </script>
 </body>
 </html>
