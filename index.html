@@ -78,89 +78,49 @@
 
         /* Стили для прокрутки текста */
 .message-container {
-    position: fixed;
-    top: 100vh;
-    left: 0;
-    width: 100%;
-    height: auto;
-    animation: scrollUp 30s linear forwards;
-    padding: 20px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 1);
-    z-index: 4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.message {
-    font-size: 3.5vw;
-    color: #ff3f3f;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    white-space: pre-line;
-    line-height: 1.4;
-}
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: auto;
+            animation: scrollUp 40s linear forwards;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 1);
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .message {
+            font-size: 3.5vw; /* Увеличили размер текста */
+            color: #ff3f3f;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            white-space: pre-line;
+            line-height: 1.4; /* Улучшили межстрочный интервал */
+        }
 
         /* Анимации */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes textGlow {
-            0%, 100% { text-shadow: 2px 2px 4px rgba(255,63,63,0.3); }
-            50% { text-shadow: 0 0 20px #ff3f3f, 2px 2px 4px rgba(255,63,63,0.3); }
-        }
-
-        @keyframes move {
-            0% {
-                transform: translateY(-100vh) rotate(45deg);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(150vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
         @keyframes scrollUp {
-    0% { 
-        transform: translateY(0); /* Начальная позиция */
-    }
-    100% { 
-        transform: translateY(-200vh); /* Поднимаем на 2 высоты экрана */
-    }
-}
-
-@media (max-width: 480px) {
-    .message {
-        font-size: 4.5vw;
-        line-height: 1.6;
-        padding: 0 20px;
-    }
-    
-    @keyframes scrollUp {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-300vh); }
-    }
-            .hearts span {
-                font-size: 6vw;
-                animation-duration: 8s !important;
+            0% { 
+                transform: translateY(0);
+            }
+            100% { 
+                transform: translateY(-150vh); 
             }
         }
 
-        @media (orientation: landscape) {
-            .container {
-                transform: translate(-50%, -50%) scale(0.9);
+        @media (max-width: 480px) {
+            .message {
+                font-size: 6vw; /* Увеличили для мобильных */
+                padding: 0 15px;
+            }
+            @keyframes scrollUp {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-200vh); }
             }
         }
     </style>
