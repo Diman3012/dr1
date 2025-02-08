@@ -8,20 +8,21 @@
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
             background: #ffffff;
             font-family: Arial, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Стили для сердечек и заголовка */
         .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            position: relative;
-            z-index: 1;
+            z-index: 2;
             padding: 20px;
         }
 
@@ -33,7 +34,6 @@
             max-height: 200px;
             margin: 5vh auto;
             animation: pulse 1.2s infinite;
-            z-index: 2;
         }
 
         .heart::before,
@@ -64,20 +64,43 @@
             text-shadow: 2px 2px 4px rgba(255,63,63,0.3);
             animation: textGlow 2s infinite;
             position: relative;
-            z-index: 2;
             white-space: nowrap;
         }
 
         .hearts span {
-            position: absolute;
+            position: fixed;
             font-size: 4vw;
             color: rgba(255,63,63,0.6);
             animation: move 15s linear infinite;
             pointer-events: none;
-            z-index: 0;
-            will-change: transform;
+            z-index: 1;
         }
 
+        /* Стили для прокрутки текста */
+        .message-container {
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: scrollUp 40s linear forwards;
+            padding: 20px;
+            box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 3;
+        }
+
+        .message {
+            font-size: 2vw;
+            color: #ff3f3f;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            white-space: pre-line;
+            line-height: 1;
+        }
+
+        /* Анимации */
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -106,14 +129,21 @@
             }
         }
 
-        @media (max-width: 480px), (max-height: 600px) {
-            .heart {
-                width: 40vw;
-                height: 40vw;
-                margin: 10vh auto;
+        @keyframes scrollUp {
+            0% { transform: translateY(0); }
+            95% { transform: translateY(-150%); }
+            100% { transform: translateY(-150%); }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 5vw;
+                padding: 0 15px;
             }
-            .text {
-                font-size: 8vw;
+            @keyframes scrollUp {
+                0% { transform: translateY(0); }
+                95% { transform: translateY(-200%); }
+                100% { transform: translateY(-200%); }
             }
             .hearts span {
                 font-size: 6vw;
@@ -123,7 +153,7 @@
 
         @media (orientation: landscape) {
             .container {
-                transform: scale(0.9);
+                transform: translate(-50%, -50%) scale(0.9);
             }
         }
     </style>
@@ -136,7 +166,25 @@
         <h1 class="text">С Днем Рождения!</h1>
     </div>
 
+    <div class="message-container">
+        <pre class="message">Бабушка, тебе желаю
+Сил, здоровья, красоты.
+Будь душою молодая,
+И себя ты береги.
+
+Находи повсюду радость,
+Улыбайся и мечтай.
+Все тревоги и усталость
+От себя ты отпускай.
+
+Пускай этот день рождения
+Соберет вокруг родных,
+Их любовь и уважение
+Сердце счастьем озарит.</pre>
+    </div>
+
     <script>
+        // Скрипт для сердечек
         const heartsContainer = document.querySelector('.hearts');
         const isMobile = /Mobi|Android/i.test(navigator.userAgent);
         
@@ -153,8 +201,21 @@
             }
         }
 
-        createHearts();
+        // Скрипт для прокрутки текста
+        const messageContainer = document.querySelector('.message-container');
         
+        window.addEventListener('load', () => {
+            createHearts();
+            messageContainer.style.animation = 'scrollUp 40s linear forwards';
+            
+            messageContainer.addEventListener('click', () => {
+                messageContainer.style.animation = 'none';
+                setTimeout(() => {
+                    messageContainer.style.animation = 'scrollUp 40s linear forwards';
+                }, 50);
+            });
+        });
+
         window.addEventListener('resize', () => {
             heartsContainer.innerHTML = '';
             createHearts();
