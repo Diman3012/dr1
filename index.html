@@ -193,49 +193,47 @@
 Сердце счастьем озарит.</pre>
     </div>
 
-    <script>
-        // Скрипт для сердечек
-        const heartsContainer = document.querySelector('.hearts');
-        const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+   <script>
+    // Скрипт для сердечек
+    const heartsContainer = document.querySelector('.hearts');
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    
+    function createHearts() {
+        const heartsCount = isMobile ? 10 : 15;
         
-        function createHearts() {
-            const heartsCount = isMobile ? 10 : 15;
-            
-            for(let i = 0; i < heartsCount; i++) {
-                const heart = document.createElement('span');
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 15 + 's';
-                heart.style.animationDuration = (isMobile ? 5 : 8) + Math.random() * 10 + 's';
-                heartsContainer.appendChild(heart);
-            }
+        for(let i = 0; i < heartsCount; i++) {
+            const heart = document.createElement('span');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 15 + 's';
+            heart.style.animationDuration = (isMobile ? 5 : 8) + Math.random() * 10 + 's';
+            heartsContainer.appendChild(heart);
         }
+    }
 
-        // Скрипт для прокрутки текста
-        const messageContainer = document.querySelector('.message-container');
+    // Скрипт для прокрутки текста
+    const messageContainer = document.querySelector('.message-container');
+    
+    window.addEventListener('load', () => {
+        createHearts();
         
-        window.addEventListener('load', () => {
-            createHearts();
-            messageContainer.style.animation = 'scrollUp 40s linear forwards';
-            
-            messageContainer.addEventListener('click', () => {
-                messageContainer.style.animation = 'none';
-                setTimeout(() => {
-                    messageContainer.style.animation = 'scrollUp 40s linear forwards';
-                }, 50);
-            });
-        });
-
         // Запуск анимации через 5 секунд
         setTimeout(() => {
             messageContainer.style.animation = 'scrollUp 40s linear forwards';
         }, 5000);
         
-       
-        window.addEventListener('resize', () => {
-            heartsContainer.innerHTML = '';
-            createHearts();
+        messageContainer.addEventListener('click', () => {
+            messageContainer.style.animation = 'none';
+            setTimeout(() => {
+                messageContainer.style.animation = 'scrollUp 40s linear forwards';
+            }, 50);
         });
-    </script>
+    });
+
+    window.addEventListener('resize', () => {
+        heartsContainer.innerHTML = '';
+        createHearts();
+    });
+</script>
 </body>
 </html>
