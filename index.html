@@ -226,6 +226,18 @@
             });
         });
 
+        // Запуск анимации через 5 секунд
+        setTimeout(() => {
+            messageContainer.style.animation = 'scrollUp 40s linear forwards';
+        }, 5000);
+        
+        messageContainer.addEventListener('click', () => {
+            messageContainer.style.animation = 'none';
+            setTimeout(() => {
+                messageContainer.style.animation = 'scrollUp 40s linear forwards';
+            }, 50);
+        });
+    });
         window.addEventListener('resize', () => {
             heartsContainer.innerHTML = '';
             createHearts();
