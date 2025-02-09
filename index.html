@@ -210,17 +210,16 @@
             heartsContainer.appendChild(heart);
         }
     }
-
+ // Запуск анимации через 5 секунд
+        setTimeout(() => {
+            messageContainer.style.animation = 'scrollUp 40s linear forwards';
+        }, 5000);
     // Скрипт для прокрутки текста
     const messageContainer = document.querySelector('.message-container');
     
     window.addEventListener('load', () => {
         createHearts();
         
-        // Запуск анимации через 5 секунд
-        setTimeout(() => {
-            messageContainer.style.animation = 'scrollUp 40s linear forwards';
-        }, 5000);
         
         messageContainer.addEventListener('click', () => {
             messageContainer.style.animation = 'none';
