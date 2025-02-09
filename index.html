@@ -83,7 +83,7 @@
             left: 0;
             width: 100%;
             height: auto;
-            animation: scrollUp 60s linear forwards;
+            animation: scrollUp 40s linear forwards; /* Уменьшил время для теста */
             padding: 20px;
             box-sizing: border-box;
             background: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
@@ -133,25 +133,27 @@
         }
 
         @keyframes scrollUp {
-            0% { 
-                transform: translateY(0); /* Начальная позиция */
+            0% {
+                transform: translateY(0);
+                opacity: 1; /* Начальная прозрачность */
             }
-            100% { 
-                transform: translateY(-200vh); /* Поднимаем на 2 высоты экрана */
+            90% {
+                transform: translateY(-200vh);
+                opacity: 1; /* Текст остается видимым до 90% анимации */
+            }
+            100% {
+                transform: translateY(-200vh);
+                opacity: 0; /* В конце анимации текст исчезает */
             }
         }
 
         @media (max-width: 480px) {
             @keyframes scrollUp {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-250vh); }
+                0% { transform: translateY(0); opacity: 1; }
+                90% { transform: translateY(-250vh); opacity: 1; }
+                100% { transform: translateY(-250vh); opacity: 0; }
             }
 
-            @keyframes scrollUp {
-                0% { transform: translateY(0); }
-                95% { transform: translateY(-200%); }
-                100% { transform: translateY(-200%); }
-            }
             .hearts span {
                 font-size: 6vw;
                 animation-duration: 8s !important;
